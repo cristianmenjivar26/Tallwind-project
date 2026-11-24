@@ -1,12 +1,13 @@
-import { useState } from 'react' 
+import { useState } from 'react'
 import { Flex } from './Components/flex'
 import { Grid } from './Components/Grind'
+import Boton from './Boton'
 
 type Vista = "index" | "app" | "flex" | "grid"
 
 function App() {
-  const [vista, setVista] = useState<Vista>("index") 
-  // corto para cambiar de vista sin repetir preventDefault()
+  const [vista, setVista] = useState<Vista>("index")
+  // Atajo para cambiar de vista sin repetir preventDefault()
   const irA = (nuevaVista: Vista) => (e: React.MouseEvent) => {
     e.preventDefault()
     setVista(nuevaVista)
@@ -26,7 +27,8 @@ function App() {
                 key={item}
                 href={`#${item}`}
                 onClick={irA(item)}
-                className={`capitalize hover:text-sky-300 ${vista === item ? "font-semibold text-sky-400" : ""}`} >
+                className={`capitalize hover:text-sky-300 ${vista === item ? "font-semibold text-sky-400" : ""}`}
+              >
                 {item}
               </a>
             ))}
@@ -37,7 +39,7 @@ function App() {
       <main className="mx-auto max-w-5xl space-y-12 px-4 py-10 sm:px-6 sm:py-14">
         <section className="text-center" id="index">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-blue-700">
-            Index - Diseño adaptable 
+            Index - Diseño adaptable
           </p>
           <h1 className="text-3xl font-bold sm:text-4xl">Ejemplos con Tailwind CSS</h1>
           <p className="mx-auto mt-4 max-w-2xl text-slate-600">
@@ -66,13 +68,30 @@ function App() {
           <section className="scroll-mt-6 space-y-4" id="app">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">App</h2>
-              <button type="button" onClick={() => setVista("index")} className="cursor-pointer rounded bg-slate-200 px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-300">
+              <button
+                type="button"
+                onClick={() => setVista("index")}
+                className="cursor-pointer rounded bg-slate-200 px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-300"
+              >
                 ← Volver al Index
               </button>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm">
-              <p className="mb-4 text-slate-700">Este es un contenedor de ejemplo para la aplicación.</p>
-              <button className="rounded bg-sky-700 px-4 py-2 text-white hover:bg-sky-900">Enviar</button>
+              <p className="mb-4 text-slate-700">
+                Este es un contenedor de ejemplo para la aplicación.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {/* Botones con variantes definidas en Boton.tsx */}
+                <Boton variante="primario" onClick={() => alert("Guardado correctamente")}>
+                  Guardar Cambios
+                </Boton>
+                <Boton variante="secundario" onClick={() => alert("Operación cancelada")}>
+                  Cancelar
+                </Boton>
+                <Boton variante="peligro" onClick={() => alert("Registro eliminado")}>
+                  Eliminar Usuario
+                </Boton>
+              </div>
             </div>
           </section>
         )}
